@@ -228,7 +228,7 @@ export default function TeacherForm({ recordForEdit, callback }) {
       // 要在表单中显示的字段
       teacherName: recordForEdit ? recordForEdit.teacherName : '',
       role: recordForEdit ? recordForEdit.role : true,
-      teacherId: recordForEdit ? recordForEdit.teacherId : 'Email Address',
+      teacherId: recordForEdit ? recordForEdit.teacherId : '',
       enabled: recordForEdit ? recordForEdit.enabled : true
     },
     validationSchema: SubmitTeacherSchema,
@@ -239,7 +239,7 @@ export default function TeacherForm({ recordForEdit, callback }) {
         url = `/teachers/${comCode}/${recordForEdit.patientId}`;
         method = http.put;
       } else {
-        url = `/teachers/${comCode}/addTeacher`;
+        url = `/teachers/${comCode}/addTeacherForBatchSingle`;
         method = http.post;
       }
       method(url, {
@@ -255,6 +255,7 @@ export default function TeacherForm({ recordForEdit, callback }) {
           if (response.status === 200) {
             // fetch all courses again to refresh Course page
             callback();
+            alert('new teacher has been saved to DB successfully.');
             // signIn(loginData);
             // navigate('/dashboard', { replace: true });
           } else {
@@ -308,7 +309,7 @@ export default function TeacherForm({ recordForEdit, callback }) {
             fullWidth
             autoComplete="teacherId"
             type="text"
-            label="Eamil"
+            label="Email Address"
             {...getFieldProps('teacherId')}
             error={Boolean(touched.teacherId && errors.teacherId)}
             helperText={touched.teacherId && errors.teacherId}
