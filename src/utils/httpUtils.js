@@ -103,7 +103,7 @@ export const deleteInfofromLocal = () => {
 };
 
 const instance = Axios.create({
-  baseURL: 'http://localhost:3000/', // 'https://jizhangapi.shanshankangfu.com/',
+  baseURL: 'https://jizhangapi.shanshankangfu.com/', // 'http://localhost:3000/',
   timeout: 30000
 });
 
