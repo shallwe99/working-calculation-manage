@@ -228,7 +228,7 @@ export default function TeacherForm({ recordForEdit, callback }) {
       // 要在表单中显示的字段
       teacherName: recordForEdit ? recordForEdit.teacherName : '',
       role: recordForEdit ? recordForEdit.role : true,
-      teacherId: recordForEdit ? recordForEdit.teacherId : 1,
+      teacherId: recordForEdit ? recordForEdit.teacherId : 'Email Address',
       enabled: recordForEdit ? recordForEdit.enabled : true
     },
     validationSchema: SubmitTeacherSchema,
