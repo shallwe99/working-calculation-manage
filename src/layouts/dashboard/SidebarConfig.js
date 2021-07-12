@@ -28,7 +28,7 @@ const sidebarConfig = [
     icon: getIcon(peopleFill)
   },
   {
-    title: 'Teacher',
+    title: 'Teachers',
     path: '/dashboard/blog',
     icon: getIcon(peopleFill)
   }
