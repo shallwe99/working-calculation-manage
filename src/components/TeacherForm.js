@@ -239,7 +239,7 @@ export default function TeacherForm({ recordForEdit, callback }) {
         url = `/teachers/${comCode}/${recordForEdit.patientId}`;
         method = http.put;
       } else {
-        url = `/teachers/${comCode}/addPatient`;
+        url = `/teachers/${comCode}/addTeacher`;
         method = http.post;
       }
       method(url, {
