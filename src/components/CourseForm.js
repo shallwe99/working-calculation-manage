@@ -250,6 +250,7 @@ export default function CourseForm({ recordForEdit, callback }) {
           if (response.status === 200) {
             // fetch all courses again to refresh Course page
             callback();
+            alert('new course has been saved to DB successfully.');
             // signIn(loginData);
             // navigate('/dashboard', { replace: true });
           } else {

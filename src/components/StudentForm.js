@@ -262,6 +262,7 @@ export default function StudentForm({ recordForEdit, callback }) {
           if (response.status === 200) {
             // fetch all courses again to refresh Course page
             callback();
+            alert('new student has been saved to DB successfully.');
             // signIn(loginData);
             // navigate('/dashboard', { replace: true });
           } else {

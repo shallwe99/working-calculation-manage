@@ -319,7 +319,7 @@ export default function UploadCourseForm({
                 alert('请求包含错误的参数值');
                 return;
               default:
-                alert('错误', JSON.stringify(err.reponse.errors.msg));
+                alert(`错误\n${JSON.stringify(err.reponse.errors.msg)}`);
             }
           });
       })
