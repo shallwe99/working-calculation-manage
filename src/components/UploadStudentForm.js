@@ -241,6 +241,7 @@ const mapRecordArrayToSubmitArray = (dataArray) =>
         newItem.payType = 'monthly';
         break;
     }
+    newItem.leftMoney = item.当前余额;
     newItem.enabled = true;
     newItem.telephone = '13323853685';
     newItem.address = 'galaxy-earth-land-people';
@@ -264,6 +265,7 @@ export default function UploadStudentForm({
       Yup.object().shape({
         patientName: Yup.string().required('Student Name required'),
         payType: Yup.mixed().oneOf(['oneTime', 'monthly']).required('Payment Type wrong'),
+        leftMoney: Yup.number().required('Left Money is required'),
         age: Yup.number().min(1).required('Age should great or equal 0'),
         sex: Yup.boolean().required('Sex is required')
       })
