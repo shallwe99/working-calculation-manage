@@ -7,9 +7,12 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import DashboardApp from './pages/DashboardApp';
 import Products from './pages/Products';
-import Blog from './pages/Blog';
+import Teacher from './pages/Teacher';
 import User from './pages/User';
+import Student from './pages/Student';
 import NotFound from './pages/Page404';
+
+import { useAuth } from './utils/useAuth';
 
 // ----------------------------------------------------------------------
 
@@ -19,11 +22,11 @@ export default function Router() {
       path: '/dashboard',
       element: <DashboardLayout />,
       children: [
-        { path: '/', element: <Navigate to="/dashboard/app" replace /> },
-        { path: 'app', element: <DashboardApp /> },
-        { path: 'user', element: <User /> },
-        { path: 'products', element: <Products /> },
-        { path: 'blog', element: <Blog /> }
+        { path: '/', element: useAuth(<Navigate to="/dashboard/app" replace />) },
+        { path: 'app', element: useAuth(<DashboardApp />) },
+        { path: 'user', element: useAuth(<User />) },
+        { path: 'products', element: useAuth(<Student />) }, // Products
+        { path: 'blog', element: useAuth(<Teacher />) }
       ]
     },
     {

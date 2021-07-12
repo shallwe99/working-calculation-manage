@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import { Icon } from '@iconify/react';
 import searchFill from '@iconify/icons-eva/search-fill';
 import trash2Fill from '@iconify/icons-eva/trash-2-fill';
+import checkMark from '@iconify/icons-eva/checkmark-circle-2-outline';
 import roundFilterList from '@iconify/icons-ic/round-filter-list';
 // material
 import { experimentalStyled as styled } from '@material-ui/core/styles';
@@ -42,10 +43,11 @@ const SearchStyle = styled(OutlinedInput)(({ theme }) => ({
 UserListToolbar.propTypes = {
   numSelected: PropTypes.number,
   filterName: PropTypes.string,
-  onFilterName: PropTypes.func
+  onFilterName: PropTypes.func,
+  placeHolder: PropTypes.string
 };
 
-export default function UserListToolbar({ numSelected, filterName, onFilterName }) {
+export default function UserListToolbar({ numSelected, filterName, onFilterName, placeHolder }) {
   return (
     <RootStyle
       sx={{
@@ -63,7 +65,7 @@ export default function UserListToolbar({ numSelected, filterName, onFilterName 
         <SearchStyle
           value={filterName}
           onChange={onFilterName}
-          placeholder="Search user..."
+          placeholder={placeHolder}
           startAdornment={
             <InputAdornment position="start">
               <Box component={Icon} icon={searchFill} sx={{ color: 'text.disabled' }} />
@@ -73,9 +75,10 @@ export default function UserListToolbar({ numSelected, filterName, onFilterName 
       )}
 
       {numSelected > 0 ? (
-        <Tooltip title="Delete">
+        <Tooltip title="Selected">
           <IconButton>
-            <Icon icon={trash2Fill} />
+            {/* <Icon icon={trash2Fill} /> */}
+            <Icon icon={checkMark} />
           </IconButton>
         </Tooltip>
       ) : (

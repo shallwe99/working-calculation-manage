@@ -8,7 +8,7 @@ import arrowIosDownwardFill from '@iconify/icons-eva/arrow-ios-downward-fill';
 import { alpha, useTheme, experimentalStyled as styled } from '@material-ui/core/styles';
 import { Box, List, ListItem, Collapse, ListItemText, ListItemIcon } from '@material-ui/core';
 
-// ----------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------
 
 const ListItemStyle = styled((props) => <ListItem button disableGutters {...props} />)(
   ({ theme }) => ({

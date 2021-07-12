@@ -30,24 +30,18 @@ import Popup from '../components/Popup';
 import UploadButton from '../components/UploadButton';
 // import USERLIST from '../_mocks_/user';
 import { http, getComCode } from '../utils/httpUtils';
-import CourseForm from '../components/CourseForm';
-import UploadCourseForm from '../components/UploadCourseForm';
+import TeacherForm from '../components/TeacherForm';
+import UploadTeacherForm from '../components/UploadTeacherForm';
 
 // ----------------------------------------------------------------------
 
 const TABLE_HEAD = [
-  { id: 'courseName', label: 'CourseName', alignRight: false },
-  { id: 'price', label: 'Price', alignRight: false },
+  { id: 'teacherName', label: 'Teacher Name', alignRight: false },
+  { id: 'teacherId', label: 'Email', alignRight: false },
+  { id: 'role', label: 'Role', alignRight: false },
   { id: 'enabled', label: 'Enabled', alignRight: false },
   { id: 'updatedAt', label: 'LastModified', alignRight: false }
 ];
-// student: [
-//   { id: 'patientName', label: 'StudentName', alignRight: false },
-//   { id: 'sex', label: 'Sex', alignRight: false },
-//   { id: 'patType', label: 'PaymentType', alignRight: false },
-//   { id: 'enabled', label: 'isEnabled', alignRight: false },
-//   { id: 'updatedAt', label: 'LastModified', alignRight: false }
-// ]
 
 // ----------------------------------------------------------------------
 
@@ -77,13 +71,13 @@ function applySortFilter(array, comparator, query) {
   if (query) {
     return filter(
       array,
-      (_user) => _user.courseName.toLowerCase().indexOf(query.toLowerCase()) !== -1
+      (_user) => _user.teacherName.toLowerCase().indexOf(query.toLowerCase()) !== -1
     );
   }
   return stabilizedThis.map((el) => el[0]);
 }
 
-export default function User() {
+export default function Teacher() {
   const [page, setPage] = useState(0);
   const [order, setOrder] = useState('asc');
   const [selected, setSelected] = useState([]);
@@ -98,7 +92,7 @@ export default function User() {
   const [openUploadPopup, setOpenUploadPopup] = useState(false);
   const fetchData = useCallback(() => {
     http
-      .get(`/courses/${getComCode()}/all`)
+      .get(`/teachers/${getComCode()}/all`)
       .then((res) => {
         setUSERLIST(res.data);
       })
@@ -145,7 +139,7 @@ export default function User() {
 
   const handleSelectAllClick = (event) => {
     if (event.target.checked) {
-      const newSelecteds = USERLIST.map((n) => n.courseName);
+      const newSelecteds = USERLIST.map((n) => n.teacherName);
       setSelected(newSelecteds);
       return;
     }
@@ -191,17 +185,17 @@ export default function User() {
   // course upload process
   // end course upload process
   return (
-    <Page title="Working Calculation | Course">
+    <Page title="Working Calculation | Teacher">
       <Container>
         <Stack direction="row" alignItems="center" justifyContent="space-between" mb={5}>
           <Typography variant="h4" gutterBottom>
-            Course
+            Teacher
           </Typography>
           <Stack direction="row" alignItems="flex-end" justifyContent="flex-end">
             <UploadButton
-              text="Import Courses"
+              text="Import Teachers"
               showUploadForm={showUploadForm}
-              importSheetName="课程数据"
+              importSheetName="老师数据"
             />
             <Button
               variant="contained"
@@ -209,7 +203,7 @@ export default function User() {
               onClick={() => setOpenPopup(true)}
               sx={{ ml: 3 }}
             >
-              New Course
+              New Teacher
             </Button>
           </Stack>
         </Stack>
@@ -218,7 +212,7 @@ export default function User() {
             numSelected={selected.length}
             filterName={filterName}
             onFilterName={handleFilterByName}
-            placeHolder="Search Course..."
+            placeHolder="Search Teacher..."
           />
 
           <Scrollbar>
@@ -238,8 +232,8 @@ export default function User() {
                     .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                     .map((row) => {
                       // const { id, name, role, status, company, avatarUrl, isVerified } = row;
-                      const { _id, courseName, price, enabled, updatedAt } = row;
-                      const isItemSelected = selected.indexOf(courseName) !== -1;
+                      const { _id, teacherName, teacherId, enabled, role, updatedAt } = row;
+                      const isItemSelected = selected.indexOf(teacherName) !== -1;
                       return (
                         <TableRow
                           hover
@@ -252,18 +246,19 @@ export default function User() {
                           <TableCell padding="checkbox">
                             <Checkbox
                               checked={isItemSelected}
-                              onChange={(event) => handleClick(event, courseName)}
+                              onChange={(event) => handleClick(event, teacherName)}
                             />
                           </TableCell>
                           <TableCell component="th" scope="row" padding="none">
                             <Stack direction="row" alignItems="center" spacing={2}>
                               {/* <Avatar alt={name} src={avatarUrl} /> */}
                               <Typography variant="subtitle2" noWrap>
-                                {courseName}
+                                {teacherName}
                               </Typography>
                             </Stack>
                           </TableCell>
-                          <TableCell align="left">{price}</TableCell>
+                          <TableCell align="left">{teacherId}</TableCell>
+                          <TableCell align="left">{role}</TableCell>
                           <TableCell align="left">{enabled ? 'Yes' : 'No'}</TableCell>
                           <TableCell align="left">
                             {updatedAt.toLocaleString().substring(0, 10)}
@@ -282,56 +277,6 @@ export default function User() {
                           </TableCell>
                         </TableRow>
                       );
-
-                      // if (type === 'student') {
-                      //   const { _id, patientName, sex, payType, enabled, updatedAt } = row;
-                      //   const isItemSelected = selected.indexOf(patientName) !== -1;
-                      //   return (
-                      //     <TableRow
-                      //       hover
-                      //       key={_id}
-                      //       tabIndex={-1}
-                      //       role="checkbox"
-                      //       selected={isItemSelected}
-                      //       aria-checked={isItemSelected}
-                      //     >
-                      //       <TableCell padding="checkbox">
-                      //         <Checkbox
-                      //           checked={isItemSelected}
-                      //           onChange={(event) => handleClick(event, patientName)}
-                      //         />
-                      //       </TableCell>
-                      //       <TableCell component="th" scope="row" padding="none">
-                      //         <Stack direction="row" alignItems="center" spacing={2}>
-                      //           {/* <Avatar alt={name} src={avatarUrl} /> */}
-                      //           <Typography variant="subtitle2" noWrap>
-                      //             {patientName}
-                      //           </Typography>
-                      //         </Stack>
-                      //       </TableCell>
-                      //       <TableCell align="left">{sex ? 'Male' : 'Female'}</TableCell>
-                      //       <TableCell align="left">
-                      //         {payType === 'oneTime' ? 'ByTimes' : 'Monthly'}
-                      //       </TableCell>
-                      //       <TableCell align="left">{enabled ? 'Yes' : 'No'}</TableCell>
-                      //       <TableCell align="left">
-                      //         {updatedAt.toLocaleString().substring(0, 10)}
-                      //       </TableCell>
-                      //       {/* <TableCell align="left">
-                      //         <Label
-                      //           variant="ghost"
-                      //           color={(status === 'banned' && 'error') || 'success'}
-                      //         >
-                      //           {sentenceCase(status)}
-                      //         </Label>
-                      //       </TableCell> */}
-
-                      //       <TableCell align="right">
-                      //         <UserMoreMenu id={_id} />
-                      //       </TableCell>
-                      //     </TableRow>
-                      //   );
-                      // }
                     })}
                   {emptyRows > 0 && (
                     <TableRow style={{ height: 53 * emptyRows }}>
@@ -362,8 +307,8 @@ export default function User() {
             onRowsPerPageChange={handleChangeRowsPerPage}
           />
         </Card>
-        <Popup title="Course Form" openPopup={openPopup} setOpenPopup={closeOpenPopup}>
-          <CourseForm
+        <Popup title="Teacher Form" openPopup={openPopup} setOpenPopup={closeOpenPopup}>
+          <TeacherForm
             recordForEdit={recordForEdit}
             callback={() => {
               closeOpenPopup();
@@ -372,7 +317,7 @@ export default function User() {
           />
         </Popup>
         <Popup
-          title="Import Courses Form"
+          title="Import Teachers Form"
           openPopup={openUploadPopup}
           setOpenPopup={closeUploadForm}
         >
@@ -383,11 +328,11 @@ export default function User() {
               fetchData();
             }}
           /> */}
-          <UploadCourseForm
+          <UploadTeacherForm
             comCode={getComCode()}
             headLabels={TABLE_HEAD.map((item) => item.label)}
             recordArray={uploadRecords}
-            companyCourseList={USERLIST}
+            companyTeacherList={USERLIST}
             callback={() => {
               closeUploadForm();
               fetchData();

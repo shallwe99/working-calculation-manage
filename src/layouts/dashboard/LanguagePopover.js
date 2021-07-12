@@ -64,6 +64,7 @@ export default function LanguagePopover() {
               selected={option.value === LANGS[0].value}
               onClick={handleClose}
               sx={{ py: 1, px: 2.5 }}
+              disabled={option.value !== 'en'}
             >
               <ListItemIcon>
                 <Box component="img" alt={option.label} src={option.icon} />
